@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import API from "../utils/axios";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -24,13 +24,13 @@ const Register = () => {
     }
 
     try {
-      await axios.post("http://localhost:3000/api/auth/register", {
+      await API.post("/auth/register", {
         email: form.email,
         password: form.password,
       });
       navigate("/login");
     } catch (err) {
-      setError(err.response.data.error);
+      setError(err.response?.data?.error || "Registration failed");
     }
   };
 
